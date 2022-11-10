@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   Col,
@@ -15,23 +14,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Options from "../components/Options";
 
-const ProductScreen:React.FC = () => {
-  const [qty, setQty] = useState(0);
+const ProductScreen: React.FC = () => {
+  const [qty, setQty] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { id } = useParams();
 
-  const productDetails = useSelector((state: any) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const { loading, error, product } = useSelector(
+    (state: any) => state.productDetails
+  );
 
   useEffect(() => {
     dispatch(listProductDetails(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
-  const addToCartHandler = () =>{
-    navigate(`/cart/${id} ? qty = ${qty}`)
-  }
+  const addToCartHandler = () => {
+    navigate(`/cart/${id}?qty=${qty}`);
+  };
 
   return (
     <>
@@ -93,15 +95,9 @@ const ProductScreen:React.FC = () => {
                         <Form.Control
                           as="select"
                           value={qty}
-                          onChange={(e)=>setQty(parseInt(e.target.value))}
+                          onChange={(e) => setQty(parseInt(e.target.value))}
                         >
-                          {[...Array(product.countInStock).keys()].map(
-                            (x: any) => (
-                              <option key={x+1} value={x+1}>
-                                {x + 1}
-                              </option>
-                            )
-                          )}
+                          <Options count={product.countInStock} />
                         </Form.Control>
                       </Col>
                     </Row>
