@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { Col, ListGroup, Row, Image, Form, Button } from "react-bootstrap";
+import { Col, ListGroup, Row, Image, Form, Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams, useLocation } from "react-router-dom";
-import { addToCart } from "../actions/cartActions";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 import Message from "../components/Message";
 import Options from "../components/Options";
 
@@ -15,6 +15,8 @@ const CartScreen = () => {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate()
+
   const { cartItems } = useSelector((state: any) => state.cart);
 
   useEffect(() => {
@@ -24,8 +26,12 @@ const CartScreen = () => {
   }, [productID, dispatch, qty]);
 
   const removeFromListhandler = (id: any) => {
-    console.log("remove");
+    dispatch(removeFromCart(id))
   };
+
+  const checkOutHandler = () =>{
+    navigate('/login?redirect=shipping')
+  }
 
   return <Row>
       <Col md={8}>
@@ -74,8 +80,21 @@ const CartScreen = () => {
           </ListGroup>
         )}
       </Col>
-      <Col md={2}></Col>
-      <Col md={2}></Col>
+      <Col md={4}>
+        <Card>
+          <ListGroup variant="flush">
+                      <ListGroup.Item>
+                        <h2>Sub Total ({cartItems.reduce((acc:any, item:any)=>acc + item.qty, 0)}) Items</h2>
+                        ${cartItems.reduce((acc:any, item:any)=> acc + item.qty * item.price ,0)}
+                      </ListGroup.Item>
+                      <ListGroup.Item>
+                        <Button type='button' className='btn-block' disabled={cartItems.lenght === 0} onClick={checkOutHandler}>
+                          Proceed To Checkout
+                        </Button>
+                      </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
     </Row>
 };
 

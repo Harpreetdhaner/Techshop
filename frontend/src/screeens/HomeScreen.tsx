@@ -10,8 +10,7 @@ import Message from "../components/Message";
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state: any) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products } = useSelector((state: any) => state.productList);
 
   useEffect(() => {
     dispatch(listProducts());
