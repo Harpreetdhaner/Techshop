@@ -16,7 +16,7 @@ const App = ()=> {
       <Routes>
       <Route path='/' element={<HomeScreen/>}/>
       <Route path='/products/:id' element={<ProductScreen/>} />
-      <Route path='/cart/:id?' element={<CartScreen/>} />
+      <Route path='/cart/:id' element={<CartScreen/>} />
       </Routes>
       </Container>
       </main>
@@ -24,5 +24,6 @@ const App = ()=> {
     </Router>
   );
 }
+
 
 export default App;
