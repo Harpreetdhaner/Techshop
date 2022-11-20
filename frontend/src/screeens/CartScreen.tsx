@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
+<<<<<<< HEAD
 import { Col, ListGroup, Row, Image, Form, Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams, useLocation } from "react-router-dom";
 import { addToCart, removeFromCart } from "../actions/cartActions";
+=======
+import { Col, ListGroup, Row, Image, Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { addToCart } from "../actions/cartActions";
+>>>>>>> e56af02742aedc62ec337d183db424b51afd0516
 import Message from "../components/Message";
 import Options from "../components/Options";
 
@@ -15,8 +23,11 @@ const CartScreen = () => {
 
   const dispatch = useDispatch();
 
+<<<<<<< HEAD
   const navigate = useNavigate()
 
+=======
+>>>>>>> e56af02742aedc62ec337d183db424b51afd0516
   const { cartItems } = useSelector((state: any) => state.cart);
 
   useEffect(() => {
@@ -26,6 +37,7 @@ const CartScreen = () => {
   }, [productID, dispatch, qty]);
 
   const removeFromListhandler = (id: any) => {
+<<<<<<< HEAD
     dispatch(removeFromCart(id))
   };
 
@@ -33,6 +45,11 @@ const CartScreen = () => {
     navigate('/login?redirect=shipping')
   }
 
+=======
+    console.log("remove");
+  };
+
+>>>>>>> e56af02742aedc62ec337d183db424b51afd0516
   return <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
@@ -80,6 +97,7 @@ const CartScreen = () => {
           </ListGroup>
         )}
       </Col>
+<<<<<<< HEAD
       <Col md={4}>
         <Card>
           <ListGroup variant="flush">
@@ -95,6 +113,10 @@ const CartScreen = () => {
           </ListGroup>
         </Card>
       </Col>
+=======
+      <Col md={2}></Col>
+      <Col md={2}></Col>
+>>>>>>> e56af02742aedc62ec337d183db424b51afd0516
     </Row>
 };
 
